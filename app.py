@@ -1,21 +1,16 @@
 from flask import Flask, jsonify
-import mysql.connector
+import sqlite3
 import os
 
 app = Flask(__name__)
 
-# Configuración de la conexión a MySQL
-db_config = {
-    "host": "localhost",
-    "user": "root",
-    "password": "Chimichurri2002!",  # cambiá si usás otra
-    "database": "books_demo"
-}
+# Ruta absoluta al archivo de la base de datos SQLite
+DB_PATH = os.path.join(os.path.dirname(__file__), "books_demo.sqlite")
 
 @app.route("/libros/top", methods=["GET"])
 def obtener_libros_top():
     try:
-        conn = mysql.connector.connect(**db_config)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
 
         query = """
@@ -42,7 +37,7 @@ def obtener_libros_top():
         conn.close()
 
         return jsonify({"libros_mejor_puntuados": libros})
-    
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
