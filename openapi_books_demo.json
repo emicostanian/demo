@@ -1,0 +1,46 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Books Demo API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/libros-mejor-puntuados": {
+      "get": {
+        "summary": "Obtener libros mejor puntuados",
+        "operationId": "getTopBooks",
+        "responses": {
+          "200": {
+            "description": "Lista de libros mejor puntuados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "libros_mejor_puntuados": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "autor": { "type": "string" },
+                          "titulo": { "type": "string" },
+                          "promedio": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Servidor local"
+    }
+  ]
+}
